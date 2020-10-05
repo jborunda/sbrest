@@ -1,18 +1,35 @@
 package sbrest.model;
 
+import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 
-public class Folder {
-	
+import javax.persistence.*;
+
+import org.hibernate.resource.beans.internal.FallbackBeanInstanceProducer;
+
+@Entity
+@Table(name = "folders")
+public class Folder implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+
+
+	//Folders( folder_id(pk) , user_id(fk) , parent_id , name , access )
+	@Id
+	@GeneratedValue
 	private Integer folderId;
 	private String folderName;
+	@ManyToOne
 	private Folder folderParent;
+	@GeneratedValue
+	@Column(updatable = false)
+	@org.hibernate.annotations.CreationTimestamp
 	private Date createdOn;
 	
 	
-	
-	//getters and setters 
 	public Integer getFolderId() {
+		
 		return folderId;
 	}
 
@@ -44,4 +61,8 @@ public class Folder {
 		this.createdOn = createdOn;
 	}
 
+	
+
+	
+	
 }
