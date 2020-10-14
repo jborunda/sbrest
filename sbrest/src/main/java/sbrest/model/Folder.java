@@ -6,6 +6,8 @@ import java.util.Set;
 
 import javax.persistence.*;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.resource.beans.internal.FallbackBeanInstanceProducer;
 
 @Entity
@@ -21,6 +23,7 @@ public class Folder implements Serializable{
 	private Integer folderId;
 	private String folderName;
 	@ManyToOne
+	@OnDelete(action = OnDeleteAction.CASCADE)
 	private Folder folderParent;
 	@GeneratedValue
 	@Column(updatable = false)

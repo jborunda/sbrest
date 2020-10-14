@@ -1,7 +1,6 @@
 package sbrest.model.dao;
 
 import java.util.List;
-import com.sun.istack.Nullable;
 import sbrest.model.*;
 
 public interface FolderDao {
@@ -16,15 +15,12 @@ public interface FolderDao {
 	// returns sub folders
 	public List<Folder> getSubFoldersById(int id);
 
-	// returns the folder parent
 	public Folder goToParent(Folder currentFolder);
 
-	// creates a new folder and set the folder passed as the parent
-	public void createFolder(String folderName, @Nullable Folder folderParent);
+	public Folder createFolder( Folder folder);
 
-	
-	public int DeleteFolder(Folder folder,int x);
+	public void DeleteFolder(Integer id);
 
-
+	public void DeleteSubFolders(Integer id);
 
 }

@@ -1,47 +1,35 @@
 package sbrest.model;
 
-import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+public class FileDto {
 
-import org.hibernate.annotations.OnDelete;
-import org.hibernate.annotations.OnDeleteAction;
-@Entity
-@Table(name = "Files")
-public class File implements Serializable{
-	private static final long serialVersionUID = 1L;
-	
-	@Id
-	@GeneratedValue
 	private Integer fileId;
-	
-	@Lob
 	private byte[] data;
-	
 	private String size;
-	
 	private String type;
-	
 	private String fileName;
-	
 	private Integer version;
-	
-	@GeneratedValue
-	@Column(updatable = false)
-	@org.hibernate.annotations.CreationTimestamp
 	private Date createdOn;
+	private Integer parentId;
+	private String parentName;
 	
-	@ManyToOne
-	@OnDelete(action = OnDeleteAction.CASCADE)
-	private Folder parentFolder;
+	public FileDto(File f){
+		fileId = f.getFileId();
+		data = f.getData(); 
+		size = f.getSize();
+		type = f.getType();
+		fileName = f.getFileName();
+		version = f.getVersion();
+		createdOn = f.getCreatedOn();
+		if(f.getParentFolder() != null) {
+			parentId = f.getParentFolder().getFolderId();
+			parentName = f.getParentFolder().getFolderName();
+		}
+	}
+	public FileDto(){
 	
+	}
 	public Integer getFileId() {
 		return fileId;
 	}
@@ -98,16 +86,20 @@ public class File implements Serializable{
 		this.createdOn = createdOn;
 	}
 
-	public Folder getParentFolder() {
-		return parentFolder;
+	public Integer getParentId() {
+		return parentId;
 	}
 
-	public void setParentFolder(Folder parentFolder) {
-		this.parentFolder = parentFolder;
+	public void setParentId(Integer parentId) {
+		this.parentId = parentId;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
+	public String getParentName() {
+		return parentName;
 	}
 
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
+	
 }
